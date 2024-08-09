@@ -1,10 +1,8 @@
 specVersion: 1.0.0
-indexerHints:
-  prune: auto
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum
+  - kind: ethereum/contract
     name: GaslessAnonAadhaarCrud
     network: polygon-amoy
     source:
@@ -16,17 +14,17 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - RelayerAdded
-        - RelayerRemoved
-        - UserAdded
+        - User
+        - AllUsers
+        - Relayer
       abis:
         - name: GaslessAnonAadhaarCrud
           file: ./abis/GaslessAnonAadhaarCrud.json
       eventHandlers:
+        - event: UserAdded(indexed address,indexed uint256)
+          handler: handleUserAdded
         - event: RelayerAdded(indexed address)
           handler: handleRelayerAdded
         - event: RelayerRemoved(indexed address)
           handler: handleRelayerRemoved
-        - event: UserAdded(indexed address,indexed uint256)
-          handler: handleUserAdded
       file: ./src/gasless-anon-aadhaar-crud.ts

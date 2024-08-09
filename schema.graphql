@@ -1,24 +1,22 @@
-type RelayerAdded @entity(immutable: true) {
-  id: Bytes!
-  relayer: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type User @entity {
+  id: ID!
+  address: Bytes!
+  nullifier: BigInt!
+  nullifierSeed: BigInt!
+  ageAbove18: Boolean!
+  gender: Int!
+  state: Int!
+  pincode: Int!
 }
 
-type RelayerRemoved @entity(immutable: true) {
-  id: Bytes!
-  relayer: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type AllUsers @entity {
+  id: ID!
+  userCount: Int!
+  users: [User!]! # Remove @derivedFrom
 }
 
-type UserAdded @entity(immutable: true) {
-  id: Bytes!
-  userAddress: Bytes! # address
-  nullifier: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type Relayer @entity {
+  id: ID!
+  address: Bytes!
+  isAuthorized: Boolean!
 }
